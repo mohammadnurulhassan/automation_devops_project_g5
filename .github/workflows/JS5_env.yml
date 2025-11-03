@@ -19,4 +19,6 @@ jobs:
       Greeting: Hello Hello Hi
     steps:
       - name: "Say hi with env"
+        run: echo "$Greeting $Name!"
+      - name: "Say hi with repo name"
         run: echo "$Greeting $Name. Your repository is called ${{ github.repository }}!"
