@@ -30,6 +30,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Hello no 2 with secret
-        with: # Set the secret as an input
+        run: echo $Greeting2 and ${{ secrets.DAY1_EXERCSISE_SECRET }}
+        #with: # Set the secret as an input
           #super_secret: ${{ secrets.DAY1_EXERCSISE_SECRET }}   
-          run: echo ${{ secrets.DAY1_EXERCSISE_SECRET }}   
