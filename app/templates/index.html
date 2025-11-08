@@ -1,35 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8" />
     <title>Weather App</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      hr {
-        margin: 30px 0;
-      }
-    </style>
+ 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap"
+      rel="stylesheet"
+    />
+ 
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
   </head>
-  <body>
-    <h1>Weather App</h1>
-    <h2>Automation and DevOps - Group 5</h2>
-
-    <p>
-      It is {{ page_data.time }} and it is {{ page_data.temperature_c }}°C and
-      {{ page_data.weather }}.
-    </p>
-
-    {% if last_year_data %}
-    <hr />
-    <h3>Same date last year</h3>
-    <p>
-      On {{ last_year_data.date }} it was {{ last_year_data.temperature_c }}°C
-      and {{ last_year_data.weather }}.
-    </p>
-    {% endif %}
+ 
+  <body class="theme-{{ page_data.main }}">
+    <div class="wrap">
+      <h1>Weather App</h1>
+      <h2>Automation and DevOps - Group 5</h2>
+ 
+      <div class="card">
+        <img class="icon" src="{{ page_data.icon }}" alt="Weather icon" />
+        <div>
+          <div class="big">{{ page_data.temperature_c }}°C</div>
+          <div class="desc">{{ page_data.weather }}</div>
+          <div class="muted">It is {{ page_data.time }}</div>
+        </div>
+      </div>
+ 
+      {% if last_year_data %}
+      <hr />
+ 
+      <h2>Same date last year</h2>
+      <div class="card">
+        <img class="icon" src="{{ last_year_data.icon }}" alt="Weather icon" />
+        <div>
+          <div class="big">{{ last_year_data.temperature_c }}°C</div>
+          <div class="desc">{{ last_year_data.weather }}</div>
+          <div class="muted">On {{ last_year_data.date }}</div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
   </body>
 </html>

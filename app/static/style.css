@@ -1,0 +1,105 @@
+:root {
+  --bg: #36415d;
+  --card: #111827;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --radius: 18px;
+  --shadow: 0 27px 55px rgba(0, 0, 0, 0.3), 0 17px 17px rgba(0, 0, 0, 0.15);
+}
+ 
+* {
+  box-sizing: border-box;
+}
+ 
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Poiret One", system-ui, Arial, sans-serif;
+}
+ 
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+}
+ 
+h1 {
+  font-size: 40px;
+  margin: 0 0 6px 0;
+}
+ 
+h2 {
+  font-size: 22px;
+  margin: 0 0 18px 0;
+  color: var(--muted);
+  font-weight: 400;
+}
+ 
+.card {
+  display: flex;
+  /* display: inline-flex;*/
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+ 
+.big {
+  font-size: 56px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+ 
+.desc {
+  margin-top: 4px;
+  font-size: 18px;
+}
+ 
+.muted {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+ 
+.icon {
+  width: 96px;
+  height: 96px;
+  flex: 0 0 auto;
+}
+ 
+hr {
+  margin: 28px 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+ 
+.theme-Clear .card {
+  background: #0b253e;
+}
+.theme-Clouds .card {
+  background: #1f2937;
+}
+.theme-Rain .card {
+  background: #0f2134;
+}
+.theme-Drizzle .card {
+  background: #0f2134;
+}
+.theme-Snow .card {
+  background: #122036;
+}
+.theme-Mist .card {
+  background: #1b2430;
+}
+.theme-Haze .card {
+  background: #1b2430;
+}
+.theme-Thunderstorm .card {
+  background: #101b2a;
+}
+ 
+ 
