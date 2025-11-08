@@ -78,6 +78,7 @@ if __name__ == "__main__":
     temp = current_weather['main']['temp']
     feels_like = current_weather['main']['feels_like']
     clouds = current_weather['weather'][0]['description']
+    icon = current_weather['weather'][0]['icon']
     precipitation = current_weather.get('rain', {}).get('1h', 0)
     today = dt.datetime.now().date()
     

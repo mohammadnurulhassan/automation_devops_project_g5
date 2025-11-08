@@ -5,15 +5,19 @@ from src.api_call import get_coordinates, get_current_weather, get_historical_we
 
 app = Flask(__name__)
 
+OWM_ICON = "https://openweathermap.org/img/wn/{code}@2x.png"
+
 @app.route("/")
 def index():
     lat, lon = get_coordinates("Stockholm")
 
     now = get_current_weather(lat, lon)
+    now_w = now["weather"][0]  
     page_data = {
-        "temperature_c": int(now["main"]["temp"]),  
-        "weather": now["weather"][0]["description"].capitalize(),
+        "temperature_c": int(now["main"]["temp"]),
+        "weather": now_w["description"].capitalize(),
         "time": dt.datetime.now().strftime("%B, %d - %Y"),
+        "icon": OWM_ICON.format(code=now_w.get("icon", "01d")),
     }
 
     last_year_data = None
@@ -26,16 +30,17 @@ def index():
 
         hist = get_historical_weather(lat, lon, target)
 
-        if "data" in hist:
+        payload = hist.get("current")
+        if payload is None and "data" in hist and hist["data"]:
             payload = hist["data"][0]
-        else:
-            payload = hist.get("current")
 
         if payload:
+            hw = payload["weather"][0]
             last_year_data = {
-                "temperature_c": int(payload["temp"]),  
-                "weather": payload["weather"][0]["description"].capitalize(),
+                "temperature_c": int(payload["temp"]),
+                "weather": hw["description"].capitalize(),
                 "date": target.strftime("%B, %d - %Y"),
+                "icon": OWM_ICON.format(code=hw.get("icon", "01d")),
             }
 
     except requests.HTTPError as e:
