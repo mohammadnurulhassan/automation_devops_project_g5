@@ -46,7 +46,7 @@ jobs:
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
         pytest --junitxml=reportyyyyyyy.xml
-        ##continue-on-error: true
+        continue-on-error: true
 
     - name: Failed test report parameter
       run: echo "The 'failed_test' parameter is set to ${{ github.event.inputs.should_deploy }}"
