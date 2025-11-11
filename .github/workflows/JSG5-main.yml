@@ -48,7 +48,7 @@ jobs:
         # making sure pytest finds the root and path to weather_app
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
-        pytest --junitxml=reporty.xml || true
+        pytest --junitxml=reporty.xml
 
     #- name: Failed test report parameter
       #run: echo "The 'failed_test' parameter is set to '${{ github.event.inputs.failed_test }}'"
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     # check if it was a fialed test run
-    if: ${{ github.event.inputs.report_enabled == 'true' && needs.test.result == 'failure' }}
+    if: ${{ github.event.inputs.failed_test == 'true' && needs.test.result == 'failure' }}
     
     steps:
     - name: Generating failed test report
