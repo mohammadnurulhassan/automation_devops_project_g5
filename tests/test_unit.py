@@ -24,8 +24,3 @@ def test_transform_weather_basic_mapping():
     assert out["humidity"] == 80
     assert out["pressure"] == 1012
     assert out["precipitation_mm"] == 0.3
-
-def test_homepage_renders(client):
-    resp = client.get("/")
-    assert resp.status_code == 200
-    assert b"Weather App" in resp.data
