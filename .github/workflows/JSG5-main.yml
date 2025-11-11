@@ -16,7 +16,7 @@ on:
         default: false
 
 env:
-  OPEN_API_KEY: ${{ secrets.OPEN_API_KEY }}
+  OPEhN_API_KEY: ${{ secrets.OPEN_API_KEY }}
 
 jobs:
   test:
@@ -45,8 +45,7 @@ jobs:
         # making sure pytest finds the root and path to weather_app
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
-        pytest --junitxml=reportyyyyyyy.xml
-        continue-on-error: true
+        pytest --junitxml=reporty.xml
 
     - name: Failed test report parameter
       run: echo "The 'failed_test' parameter is set to ${{ github.event.inputs.should_deploy }}"
@@ -62,10 +61,6 @@ jobs:
     # check if it was a fialed test run
     if: ${{ github.event.inputs.failed_test_printer == 'true' }}
     
-    env:
-      TEST_LOG_DIR: "test_run_failures"
-      TEST_LOG_FILE: "test_${{ github.job }}.xml" 
-    
     steps:
     - name: Generating failed test report
       run: |
@@ -78,7 +73,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: pytest-test-report # The name you'll see on the GitHub Actions summary page
-        path: failed_reports_dir/report.xml         # The path to the file you want to upload
+        path: failed_reports_dir/reporty.xml         # The path to the file you want to upload
     #- name: Upload test report artifact
     #  uses: actions/upload-artifact@v4
     #  with:
