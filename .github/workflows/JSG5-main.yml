@@ -9,14 +9,14 @@ on:
   #pipeline can be started manually
   workflow_dispatch:
     inputs:
-      failed_test:
+      print_test:
         description: 'If true, failed tests will be saved to a log file. Otherwise this step is skipped and proceed to build'
         type: boolean
         required: true
-        default: true
+        default: false
 
 env:
-  OPEhN_API_KEY: ${{ secrets.OPEN_API_KEY }}
+  OPEN_API_KEY: ${{ secrets.OPEN_API_KEY }}
 
 jobs:
   test:
@@ -44,39 +44,36 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run pytest
+      id: test
       run: |
         # making sure pytest finds the root and path to weather_app
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
         pytest --junitxml=reporty.xml
 
-    #- name: Failed test report parameter
-      #run: echo "The 'failed_test' parameter is set to '${{ github.event.inputs.failed_test }}'"
-
-
-  print_test_output:
-    name: "Job #2 - printing failed tests"
-    #----------------------------------------------------------------------------------
-    #----------------------------JOB #2 - Print FAILED TES RUN ------------------------
-    #----------------------------------------------------------------------------------
-    runs-on: ubuntu-latest
-    needs: test
-    # check if it was a fialed test run
-    if: ${{ github.event.inputs.failed_test == 'true' && needs.test.result == 'failure' }}
-    
-    steps:
-    - name: Generating failed test report
+    - name: Print test result
+      if: ${{ steps.test.outcome == 'success' && github.event.inputs.failed_test == 'true' }}
       run: |
         echo "Test failed, generating report"
         
     - name: Creating folder for reports (idempotent with -p)
       run: mkdir -p failed_reports_dir
         
-    - name: Upload Pytest Report as Artifact 📂
+    - name: Upload pytest report as artifact
       uses: actions/upload-artifact@v4
       with:
         name: pytest-test-report # The name you'll see on the GitHub Actions summary page
         path: failed_reports_dir/reporty.xml         # The path to the file you want to upload
+
+
+  #print_test_output:
+   # name: "Job #2 - printing failed tests"
+    #----------------------------------------------------------------------------------
+    #----------------------------JOB #2 - Print FAILED TES RUN ------------------------
+    #----------------------------------------------------------------------------------
+    #runs-on: ubuntu-latest
+    #needs: test
+  
     #- name: Upload test report artifact
     #  uses: actions/upload-artifact@v4
     #  with:
