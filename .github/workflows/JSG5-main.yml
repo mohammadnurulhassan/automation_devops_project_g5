@@ -32,7 +32,7 @@ jobs:
     - name: Install pytest
       run: pip install pytest
     - name: Run pytest
-      run: pytest --tee test_run_output.txt # pytest command finds and execute files starting with 'test_' and save results to a file
+      run: pytest --junitxml=test_run_results.xml # pytest command finds and execute files starting with 'test_' and save results to a xml file
 
 
 
