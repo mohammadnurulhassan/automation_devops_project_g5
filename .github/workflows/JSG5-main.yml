@@ -11,28 +11,33 @@ on:
 
 jobs:
   test:
+  #---------------------------------------------------------------------------------------------------------
+  #------------------------------------TEST RUN ------------------------------------------------------------
+  #---------------------------------------------------------------------------------------------------------
     runs-on: ubuntu-latest
+    
+    env:
+      TEST_LOG_DIR: "test_run_failures"
+      TEST_LOG_FILE: "test_${{ github.job }}.txt"
+      
     steps:
     - name: Checkout repo code
       uses: actions/checkout@v4
 
-    - name: Install pytest
-      run: |
-        # installing pytest
-        pip install pytest
-    - name: Run Pytest
-      run: |
-        # The pytest command will find and execute all functions starting with 'test_'
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
 
+    - name: Install pytest
+      run: pip install pytest
+    - name: Run pytest
+      run: pytest # pytest command finds and execute files starting with 'test_'
 
     - name: Creating and uploading test run metadata file
-      run: |
-        # Define filename and directory
-        METADATA_DIR="test_run_artifacts"
-        METADATA_FILE: "test_${{ github.job }}.txt"
-          
+      run: |    
         # Creating folder (idempotent)
-        mkdir -p "$METADATA_DIR"
+        mkdir -p "$ {{env.METADATA_DIR}} "
           
         # Adding metadata to file structured data to the file
           cat >
