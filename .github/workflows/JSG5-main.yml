@@ -43,6 +43,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: hej
+      run: echo $ {{ github.event.inputs.print_test }}
+       
     - name: Run pytest
       id: test
       run: |
@@ -50,12 +53,10 @@ jobs:
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
         pytest --junitxml=reporty.xml
-        echo steps.test.outcome
-        echo github.event.inputs.print_test
 
     - name: Print test result
       #if: ${{ steps.test.outcome == 'failure' && github.event.inputs.print_test == 'true' }}
-      if: ${{ steps.test.outcome == 'failure' && format('{0}', github.event.inputs.print_test) == 'true' }}
+      if: ${{ steps.test.outcome == 'failure' && github.event.inputs.print_test == 'true' }}
       run: |
         echo "Test failed, generating report"
         # creating folder for reports (idempotent with -p)
