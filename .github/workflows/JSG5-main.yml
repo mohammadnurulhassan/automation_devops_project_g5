@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     # check if it was a fialed test run
-    if: ${{ github.event.inputs.report_enabled == 'true' && steps.test.outcome == 'failure' }}
+    if: ${{ github.event.inputs.report_enabled == 'true' && needs.test.result == 'failure' }}
     
     steps:
     - name: Generating failed test report
