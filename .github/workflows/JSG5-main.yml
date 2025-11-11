@@ -45,13 +45,13 @@ jobs:
     
     - name: Add test reports to folder (idempotent with -p)
       run: |
-        mkdir -p "$TEST_LOG_DIR"
+        mkdir -p "$env.TEST_LOG_DIR"
 
     - name: Upload test report artifact
       uses: actions/upload-artifact@v4
       with:
         name: pytest junit report
-        path: "$TEST_LOG_DIR/$TEST_LOG_FILE" # Path to the file created in the previous step
+        path: "$env.TEST_LOG_DIR/$env.TEST_LOG_FILE" # Path to the file created in the previous step
 
 
 #vara tydliga namngivningar för bland annat workflows, jobs och steps.
