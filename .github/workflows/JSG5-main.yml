@@ -13,7 +13,7 @@ on:
         description: 'If true, failed tests will be saved to a log file. Otherwise this step is skipped and proceed to build'
         type: boolean
         required: true
-        default: false
+        default: true
 
 env:
   OPEhN_API_KEY: ${{ secrets.OPEN_API_KEY }}
