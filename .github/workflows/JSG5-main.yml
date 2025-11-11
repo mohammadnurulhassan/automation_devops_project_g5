@@ -48,7 +48,8 @@ jobs:
         # 3. Echo the result for learning
         echo "The exit code from Pytest was: $TEST_RESULT_CODE"
         # 4. Now, exit with the original code so the step fails/succeeds correctly
-        echo stdout
+        echo pytest_success.log
+        echo pytest_errors.log
         echo stderr
         exit $TEST_RESULT_CODE
     
