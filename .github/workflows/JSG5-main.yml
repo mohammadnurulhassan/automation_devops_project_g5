@@ -65,12 +65,12 @@ jobs:
           echo "reporty.xml not found."
         fi
     
-    #- name: Upload pytest report as artifact
-     # if: ${{ steps.test.outcome == 'failure' && github.event.inputs.print_test == 'true' }}
-      #uses: actions/upload-artifact@v4
-     # with:
-      #  name: pytest-test-report # The name you'll see on the GitHub Actions summary page
-       # path: failed_reports_dir/reporty.xml         # The path to the file you want to upload
+    - name: Upload pytest report as artifact
+      if: ${{ steps.test.outcome == 'failure' && github.event.inputs.print_test == 'true' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-test-report # The name you'll see on the GitHub Actions summary page
+        path: failed_reports_dir/reporty.xml         # The path to the file you want to upload
 
 
   #print_test_output:
