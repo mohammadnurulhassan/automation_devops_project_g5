@@ -1,0 +1,41 @@
+name: John Sandsjö Group 5 - main workflow
+
+#pipeline starts at push
+on:
+  push:
+    branches:
+      - main
+
+  #pipeline can be started manually
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo code
+      uses: actions/checkout@v4
+  
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        # installing pytest
+        pip install pytest
+    - name: Run Pytest
+      run: |
+        # The pytest command will find and execute all functions starting with 'test_'
+
+
+#vara tydliga namngivningar för bland annat workflows, jobs och steps.
+#2. Användning av environment-variabler, GitHub-kontextvariabler och GitHub Secrets (till exempel, API-nycklar och Docker-credentials).
+#3. Logik och beroenden (användning av needs och if-satser) ska användas i pipelinen.
+#parameter för att logga fel:
+#  a. Om parametern är satt till true och testerna misslyckas, ska en logg-error artefakt genereras.
+#  b. Om parametern är satt till false, skapas ingen loggfil, oavsett testresultat.
+#5. När alla tester är godkända ska pipelinen:
+#  a. Skapa en Docker-image av applikationen.
+#  b. Publicera Docker-imagen på DockerHub som är kopplad till en Azure-app service (med användning av Azure-credentials).
