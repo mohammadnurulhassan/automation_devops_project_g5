@@ -29,14 +29,17 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install pytest
-      run: pip install pytest
+    - name: Install pytest and other dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      
     - name: Run pytest
       run: |
         # making sure pytest finds the root and path to weather_app
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
-        pytest --junitxml=test_run_results.xml 
+        pytest --junitxml=test_run_results.xml
 
 
 
