@@ -125,7 +125,7 @@ jobs:
       with:
         # Added this to Github secret recieved from running in cli `az ad sp create-for-rbac`
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        subscription-id: ${{ secrets.AZ_SUB_ID }}     
+        #subscription-id: ${{ secrets.AZ_SUB_ID }}     
 
     
     - name: Azure CLI Action
