@@ -44,17 +44,16 @@ jobs:
       id: pytest
       continue-on-error: true
       run: |
-        **mkdir -p test-reports**
         # making sure pytest finds the root and path to weather_app
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
-        pytest --junitxml=test_reports/reporty.xml
+        pytest --junitxml=test_report.xml
     
     - name: Upload pytest report as artifact
       uses: actions/upload-artifact@v4
       with:
         name: pytest-test-report
-        path: test-reports
+        path: test-report.xml
   
   build_and_push_job:
     name: "Job #2 - Build and push docker image to Docker Hub"
