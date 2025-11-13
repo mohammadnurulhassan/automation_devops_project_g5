@@ -25,12 +25,7 @@ jobs:
   #----------------------------JOB #1 - TEST RUN ------------------------------------
   #----------------------------------------------------------------------------------
     runs-on: ubuntu-latest
-
-    outputs:
-      # Need to output the pytest true outcome due to continue-on-error: true
-      test_passed: ${{ steps.pytest.outcome }}
     
-        
     steps:
     - name: Checkout repo code
       uses: actions/checkout@v4
@@ -53,10 +48,9 @@ jobs:
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
         pytest --junitxml=reporty.xml
-        echo ${{ steps.test.outcome}}
 
     - name: Print test result
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.print_test == 'true' && steps.test.outcome == 'failure' }}
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.print_test == 'true' && steps.pytest.outcome == 'failure' }}
       run: |
         echo "Test failed, generating report"
         # creating folder for reports (idempotent with -p)
