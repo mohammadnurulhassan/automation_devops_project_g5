@@ -67,7 +67,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: pytest-test-report
-        path: /reporty.xml
+        path: reporty.xml
 
 
   build_and_push_job:
