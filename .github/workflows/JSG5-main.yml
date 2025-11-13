@@ -53,6 +53,7 @@ jobs:
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
         pytest --junitxml=reporty.xml
+        echo ${{ steps.test.outcome}}
 
     - name: Print test result
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.print_test == 'true' && steps.test.outcome == 'failure' }}
