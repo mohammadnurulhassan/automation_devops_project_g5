@@ -2,9 +2,9 @@ name: John Sandsjö Group 5 - main workflow
 
 on:
   #pipeline starts at push
-  push:
-    branches:
-      - main
+  #push:
+   # branches:
+    #  - main
 
   #pipeline can be started manually
   workflow_dispatch:
@@ -25,12 +25,7 @@ jobs:
   #----------------------------JOB #1 - TEST RUN ------------------------------------
   #----------------------------------------------------------------------------------
     runs-on: ubuntu-latest
-
-    outputs:
-      # Need to output the pytest true outcome due to continue-on-error: true
-      test_passed: ${{ steps.pytest.outcome }}
     
-        
     steps:
     - name: Checkout repo code
       uses: actions/checkout@v4
@@ -52,29 +47,22 @@ jobs:
         # making sure pytest finds the root and path to weather_app
         export PYTHONPATH=$PYTHONPATH:./ 
         # pytest command finds and execute files starting with 'test_' and save results to a xml file
-        pytest --junitxml=reporty.xml
-
-    - name: Print test result
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.print_test == 'true' && steps.test.outcome == 'failure' }}
-      run: |
-        echo "Test failed, generating report"
-        # creating folder for reports (idempotent with -p)
-        mkdir -p test_reports_dir 
-        # moving the file to the folder
-        if [ -f reporty.xml ]; then
-          mv reporty.xml test_reports_dir/
-        else
-          echo "reporty.xml not found."
-        fi
+        pytest --junitxml=test_report.xml
     
     - name: Upload pytest report as artifact
-      if: ${{ steps.test.outcome == 'failure' && github.event.inputs.print_test == 'true' }}
       uses: actions/upload-artifact@v4
       with:
-        name: pytest-test-report # The name you'll see on the GitHub Actions summary page
-        path: failed_reports_dir/reporty.xml         # The path to the file you want to upload
-
-
+        name: pytest-test-report
+        path: test_report.xml
+  
+    - name: Send email
+      uses: dawidd6/action-send-mail@v6
+      with:
+        subject: Test report
+        to: ${{ secrets.EMAIL }}
+        attachments: test_report.xml
+      
+  
   build_and_push_job:
     name: "Job #2 - Build and push docker image to Docker Hub"
     #----------------------------------------------------------------------------------
