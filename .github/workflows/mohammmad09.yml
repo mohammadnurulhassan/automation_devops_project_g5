@@ -1,8 +1,8 @@
-name: Mohammad Hassan-g5 CI/CD Pipeline
+name: Mohammad-g5 CI/CD Pipeline
 on:
   push:
     branches:
-      - MHassan5
+      - main
 
   workflow_dispatch:
     inputs:
