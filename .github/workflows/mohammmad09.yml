@@ -1,8 +1,8 @@
-name: Mohammad Hassan-g5 CI/CD Pipeline
+name: Mohammad-g5 CI/CD Pipeline
 on:
   push:
     branches:
-      - MHassan5
+      - main
 
   workflow_dispatch:
     inputs:
@@ -35,7 +35,7 @@ jobs:
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
-        python-version: '3.11'
+         python-version: '3.11'
 
 
       - name: Install pytest and other dependencies
@@ -47,8 +47,7 @@ jobs:
       - name: Run pytest
         id: pytest
         continue-on-error: true
-        run: |
-        # making sure pytest finds the root and path to weather_app
+        run: |  
          export PYTHONPATH=$PYTHONPATH:./ 
          pytest --junitxml=reporty.xml
 
