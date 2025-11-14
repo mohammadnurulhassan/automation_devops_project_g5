@@ -89,7 +89,7 @@ jobs:
     needs: test_job
 
     env:
-      DOCKER_IMAGE: wafeemohammad/MHassan5_weather_app
+      DOCKER_IMAGE: wafeemohammad/weather_app
       DOCKER_PATH: ./dockerfile
     
 
