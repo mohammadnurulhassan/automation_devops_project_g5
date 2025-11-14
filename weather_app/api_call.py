@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-APIhjhc_KEY = os.getenv("OPEN_API_KEY")
+API_KEY = os.getenv("SECRET")
 
 geo_coding_url = "https://api.openweathermap.org/geo/1.0/direct"
 

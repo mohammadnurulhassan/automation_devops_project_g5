@@ -12,7 +12,7 @@ on:
           required: true
           default: true
 env:
-  OPEN_API_KEY: ${{ secrets.OPEN_API_KEY }}
+  SECRET: ${{ secrets.SECRET}}
 
 jobs:
   test_job:
