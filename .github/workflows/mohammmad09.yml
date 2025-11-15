@@ -20,8 +20,7 @@ jobs:
     #-----------------------------------------------------------------------------
 
     #----------------------------JOB #1 - TEST RUN ---------------------------------
-    #---
-    #
+    #-----------------------------------------------------------------------------
     runs-on: ubuntu-latest
     outputs:
        test_passed: ${{ steps.pytest.outcome }}
@@ -67,11 +66,11 @@ jobs:
 
       - name: Upload Test Report Artifact
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_tests == 'true' && steps.test.outcome == 'failure' }}
-        uses: actions/upload-artifact@v4  # v3
+        uses: actions/upload-artifact@v4  
         with:
           name: pytest-report
           path: test_reports_dir/reporty.xml
-          retention-days: 5
+          
     
 
 
