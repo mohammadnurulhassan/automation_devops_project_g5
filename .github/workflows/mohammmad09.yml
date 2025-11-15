@@ -113,3 +113,22 @@ jobs:
 
         push: true # flag to tell the action to push the image to Docker Hub
         tags: ${{ env.DOCKER_IMAGE }}:latest #hardcoded tag 'latest' for simplicity
+
+
+  deploy_job:
+    name: "Job #3 - Deploy to Azure Web App"
+    #----------------------------------------------------------------------------------
+    #------------------------JOB #3 - Deploy to Azure Web App ------------------------- 
+    #----------------------------------------------------------------------------------
+    runs-on: ubuntu-latest
+    needs: build_and_push_job
+    if: ${{ success() }}
+
+    steps:
+      - name: Print deploy massage
+        run: |
+          echo "Docker image pushed: wafeemohammad/weather_app:latest"
+          echo "Azure Web App is configured to pull this image from Docker Hub."
+          echo "URL: https://weather-app-mhassan-f4e2ecacg5bqdaff.swedencentral-01.azurewebsites.net/"
+
+     
