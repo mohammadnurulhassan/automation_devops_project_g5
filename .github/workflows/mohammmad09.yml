@@ -65,7 +65,7 @@ jobs:
          fi
 
       - name: Upload Test Report Artifact
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_tests == 'true' && steps.test.outcome == 'failure' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_tests == 'true' && steps.pytest.outcome == 'failure' }}
         uses: actions/upload-artifact@v4  
         with:
           name: pytest-report
